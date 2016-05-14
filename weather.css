@@ -1,0 +1,138 @@
+html{
+  height: 100%;
+  width: 100%;
+}
+
+body{
+  min-height: 100%;
+  width: 100%;
+  font-family: Ubuntu;
+  color: white;
+  padding-bottom: 40%;
+}
+
+h1{
+  font-size: 1.8em;
+}
+
+.container{
+  margin-top: 200px;
+  padding-bottom: 20px;
+  border-radius: 20px;
+  font-size: 30px;
+  text-align: center;
+  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) );
+}
+
+#metric,#imperial{
+  background: none;
+  border: none;
+  font-size: 0.7em;
+}
+
+/*removing the blue box shadow border on the button if clicked*/
+button:focus{
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+hr{
+  width: 60%;
+  margin-top: 5px;;
+  margin-bottom: 5px;
+}
+
+.today{
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.city, .country, .temperature, .windSpeed, .description{
+  font-weight: 500;
+  color: #17B900;
+}
+
+.description{
+  margin-top: 10px;
+}
+
+.count,.wind{
+  margin-left: 20px;
+}
+
+.line{
+ font-size: 20px;
+ margin-bottom: 10px;
+}
+
+#enterCity{
+  font-size: 0.7em;
+  color: #17B900;
+}
+
+#search{
+  margin-top: 20px;
+  color: black;
+  font-size: 0.7em;
+  text-decoration: none;
+}
+
+.line2{
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.form-control{
+  max-width: 20%;
+  margin: 0 auto;
+}
+
+.forDate{
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.forDescription,.forTemperature{
+  color: #17B900;
+  font-weight: 500;
+}
+
+/*hiding forecast when page loads*/
+#effect{
+  display: none;
+}
+
+.weatherIcon{
+  transform:scale(1.5,1.5);
+}
+
+/*autocomplete*/
+.ui-autocomplete {
+    background: white;
+    color: black;
+    font-size: 15px;
+    color: #17B900;
+    list-style: none;
+    padding-left: 1px;
+    width: 20%;
+}
+
+.ui-helper-hidden-accessible {
+  display:none;
+}
+
+footer{
+  background-color: black;
+  color: gray;
+  padding-top: 10px;
+  padding-bottom: 6px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+}

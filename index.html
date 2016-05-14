@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="weather.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Weather Application</h1>
+      <hr>
+      <!-- city search -->
+      <p class="line">Enter a city name and press enter to view its current weather</p>
+      <input id="enterCity" type="text">
+      <!-- changing units -->
+      <div>
+        <button type="button" id="metric">metric |</button>
+        <button type="button" id="imperial">| imperial</button>
+      </div>
+      <hr>
+      <!-- today's weather -->
+      <div class="today"></div>
+      <div class="description"></div>
+      <div>
+        <span>City:</span> <span class=city></span>
+        <span class="count">Country:</span> <span class="country"></span>
+      </div>
+      <div>
+        <span>Temperature:</span> <span class="temperature"></span>
+        <span class="wind">Wind Speed:</span> <span class="windSpeed"></span>
+      </div>
+      <hr>
+      <!-- dropdown menu showing forecast  -->
+      <div class="line2">Forecast</div>
+      <select class="form-control">
+          <option selected="selected" value="0">Choose the number of days</option>
+          <option value="1">4</option>
+          <option value="2">8</option>
+          <option value="3">12</option>
+          <option value="4">16</option>
+      </select>
+      <!-- the blind effect -->
+      <div id="effect">
+        <!-- where all forecast data display -->
+        <div class="row"></div>
+      </div><!-- end of effect -->
+    </div> <!-- end container -->
+
+    <footer>
+      <p>Copyright © David Kopal 2016</p>
+    </footer>
+
+  <script type="text/javascript" src="weatherApp.js"></script>
+  </body>
+</html>
