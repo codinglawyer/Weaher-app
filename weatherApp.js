@@ -1,23 +1,23 @@
 //Update HTML with info from location and weather APIs
 function updateToday(w,data){
   //convert date with the function
-  $(".today").html(futureDateToDayCapitalize(new Date(),0))
-  $(".city").html(w.city);
-  $(".country").html(data.sys.country);
+  $(".today").text(futureDateToDay(0))
+  $(".city").text(w.city);
+  $(".country").text(data.sys.country);
   //round temp and wind speed to tenths
-  $(".temperature").html(Math.floor(w.temp * 10) / 10 + " °C");
-  $(".windSpeed").html(Math.floor(w.windS * 10) / 10 + " m/s");
+  $(".temperature").text(Math.floor(w.temp * 10) / 10 + " °C");
+  $(".windSpeed").text(Math.floor(w.windS * 10) / 10 + " m/s");
   $(".description").html("<div><img class='weatherIcon'src='" + "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png" + "'alt=''></div>" + data.weather[0].description);
   backgroundChange(w);  //updating background according to temp
 }
 
 //Update HTML with forecast data according to the numnber of days from the dropdown option
 function updateForecast(w){
-  //clean previous forecast information
+  //clear previous forecast information
   var forecastText = "";
   for(var i = 0; i < w.selectedNumberDays; i++){
     forecastText += "<div class='col-md-3'>";
-    forecastText += "<div class='forDate'>" + futureDateToDayCapitalize(new Date(),i) + "</div>";
+    forecastText += "<div class='forDate'>" + futureDateToDay(i) + "</div>";
     forecastText += "<div class='forDescription'>" + "<div><img class='weatherIcon' src='" + "http://openweathermap.org/img/w/" + w.forecastData.list[i].weather[0].icon + ".png" + "'alt=''></div>" + w.forecastData.list[i].weather[0].description + "</div>";
     forecastText += "<div class='forTemperature'>" + Math.floor(w.forecastData.list[i].temp.day * 10)/10 + w.unitsTemp + "</div>"
     forecastText += "</div>";
@@ -68,14 +68,16 @@ $("#metric").on("click", function(){
   if(weatherInfo.units !== "metric"){
     weatherInfo.unitsTemp = " °C";
     weatherInfo.units = "metric";
-    //make API call with different units
-    weatherAPI.getForecastData(weatherInfo, function(w){
-      updateForecast(w)
-    });
+    //make API call only if the dropdown menu is not set to the default value
+    if($(".form-control").find("option:selected").text() !== "Choose the number of days"){
+      weatherAPI.getForecastData(weatherInfo, function(w){
+        updateForecast(w)
+      });
+    }
+    //change the today's units
+    $(".temperature").text(weatherInfo.temp + " °C");
+    $(".windSpeed").text(weatherInfo.windS + " m/s");
   }
-  //change the today's units
-  $(".temperature").text(weatherInfo.temp + " °C");
-  $(".windSpeed").text(weatherInfo.windS + " m/s");
 });
 
 $("#imperial").on("click", function(){
@@ -94,11 +96,11 @@ $("#imperial").on("click", function(){
 });
 
 //converts today's date to the future date, convert it into the day of the week in the user's language and capitalize the first letter
-function futureDateToDayCapitalize(dateString, days){
+function futureDateToDay(futureDay){
     //store current date
-    var newDate = new Date(dateString);
+    var newDate = new Date();
     //get future date
-    var updateDate = new Date(newDate.getTime() + days*24*60*60*1000)
+    var updateDate = new Date(newDate.getTime() + futureDay*24*60*60*1000)
     //convert date to the day of the week in the user's language
     var translatedDay = updateDate.toLocaleString(window.navigator.language, {weekday: 'long'});
     //capitalize the first letter
@@ -108,7 +110,7 @@ function futureDateToDayCapitalize(dateString, days){
 //when the value (number) from the dropdown menu is selected, it is stored in the variable
 $(".form-control").change(function(){
   weatherInfo.selectedNumberDays = $(this).find("option:selected").text();
-  //if the default value is selected from the dropdown menu, hide the forecast info 
+  //if the default value is selected from the dropdown menu, hide the forecast info
   if($(".form-control").find("option:selected").text() === "Choose the number of days"){
     $("#effect").hide("blind", 500);
   }
@@ -140,24 +142,19 @@ document.querySelector('#enterCity').addEventListener('keydown', function(e) {
       lang: weatherInfo.lang,
       appid: "2d065d4d45046e640c6a38edf52812ce"
     }
-    // update HTML page
+    // update today's weather on the HTML page
     weatherAPI.getWeatherData(weatherInfo, function(w, dataWeat){
       updateToday(w, dataWeat);
-    });
-    weatherAPI.getForecastData(weatherInfo, function(w){
-      updateForecast(w)
     });
   }
 });
 
-
-
-//Object weatherInfo stores weather object and location information object
+//object weatherInfo stores weather and location information
 var weatherInfo = {};
 
-//Object that stores all the weather API calls
+//object that stores all the weather API calls
 var weatherAPI = {
-  //Get weather data according to the retrieved location data with two arguments - object and function
+  //get weather data according to the retrieved location data with two arguments - object and function
   getWeatherData: function(w, callback){
     $.getJSON("http://api.openweathermap.org/data/2.5/weather?", w.dataSendWeat, function(dataWeat){
       w.temp = dataWeat.main.temp;
@@ -205,20 +202,20 @@ var locationAPI = {
     //Detecting user's browser language preference with IIFE
     (function (){
       var language = window.navigator.userLanguage || window.navigator.language;
-      //openweather API needs "cz" for Czech language
+      //openweather API needs "cz" for the Czech language
       if(language === "cs"){
-        w.lang = "cz"
+        w.lang = "cz";
       }
       else{
         w.lang = language;
       }
     }());
-    // Get location data of the user
+    //get location data of the user
     $.getJSON("http://ip-api.com/json", function getDataLoc(dataLoc){
       w.city = dataLoc.city;
-	 //metric units are default units for this app
+	    //metric units are default units for this app
       w.units = "metric";
-      //store some of the data in the variable to be send to the weather server with AJAX
+      //store data in the variable in order to be send to the weather server with the AJAX request
       w.dataSendWeat = {
         lat: dataLoc.lat,
         lon: dataLoc.lon,
@@ -262,29 +259,12 @@ $("#enterCity").autocomplete({
 locationAPI.getLocation(weatherInfo, function(w){
   weatherAPI.getWeatherData(w, updateToday);
 })
-//v argumentu nemuzu primo volat funkce protože ty by se hned zavolaly misto toho aby se zavolaly potom, co doběhne prislusny proces
+
 // v poslednim pripade nemusim pouzivat anonymni funkci protoze argumenty pro updateToday jsou uz v callbacku u funkce getWeatherData
+
 
 // "http://api.openweathermap.org/data/2.5/forecast?q=" + weatherInfo.city + "&mode=json" + "&units=" + weatherInfo.units + "&lang=" + weatherInfo.lang + "&appid=2d065d4d45046e640c6a38edf52812ce";
 // "http://api.openweathermap.org/data/2.5/forecast?q=London,us&mode=json&appid=b1b15e88fa797225412429c1c50c122a"
-
-
-// Get location of the user with geolocation
-// function getLocation(){
-//   if (navigator.geolocation){
-//     navigator.geolocation.getCurrentPosition(showPosition);g
-//   }
-//   else{
-//     alert("Geolocation is not available")
-//   }
-// }
-//
-// function showPosition(position){
-//   latitude  = position.coords.latitude;
-//   longitude = position.coords.longitude;
-//   getWeather()
-// }
-
 // Testing URLs
   // var url = "http://api.openweathermap.org/data/2.5/weather?lat=50.132096399999995&lon=14.4872164&appid=44db6a862fba0b067b1930da0d769e98"
   // var url = "http://api.geonames.org/search?maxRows=10&style=LONG&lang=cs&username=demo&name_startsWith=Praha&type=json"
