@@ -260,9 +260,6 @@ locationAPI.getLocation(weatherInfo, function(w){
   weatherAPI.getWeatherData(w, updateToday);
 })
 
-// v poslednim pripade nemusim pouzivat anonymni funkci protoze argumenty pro updateToday jsou uz v callbacku u funkce getWeatherData
-
-
 // "http://api.openweathermap.org/data/2.5/forecast?q=" + weatherInfo.city + "&mode=json" + "&units=" + weatherInfo.units + "&lang=" + weatherInfo.lang + "&appid=2d065d4d45046e640c6a38edf52812ce";
 // "http://api.openweathermap.org/data/2.5/forecast?q=London,us&mode=json&appid=b1b15e88fa797225412429c1c50c122a"
 // Testing URLs
