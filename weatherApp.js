@@ -33,11 +33,11 @@ function updateForecast(w){
 
 //Object with background pictures
 var background = {
-   zeroDegrees: "https://images.unsplash.com/photo-1452302372225-a5ba1edd65ca?crop=entropy&fit=crop&fm=jpg&h=950&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925",
-   tenDegrees: "https://images.unsplash.com/photo-1445561696415-deadc6a2adaa?crop=entropy&fit=crop&fm=jpg&h=950&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925",
-   twentyDegrees: "https://images.unsplash.com/photo-1418225043143-90858d2301b4?crop=entropy&fit=crop&fm=jpg&h=950&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925",
-   thirtyDegrees: "https://images.unsplash.com/uploads/14121010130570e22bcdf/e1730efe?crop=entropy&fit=crop&fm=jpg&h=950&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925",
-   moreDegrees: "https://images.unsplash.com/reserve/unsplash_529f1a3f2f5ed_1.JPG?crop=entropy&fit=crop&fm=jpg&h=950&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=1925",
+   zeroDegrees: "https://res.cloudinary.com/dmur7nphq/image/upload/v1459690272/weather_winter_b1vbcd.jpg",
+   tenDegrees: "https://res.cloudinary.com/dmur7nphq/image/upload/v1459690273/weather_0_hm6twr.jpg",
+   twentyDegrees: "https://res.cloudinary.com/dmur7nphq/image/upload/v1459690272/weather_10_dmjkyd.jpg",
+   thirtyDegrees: "https://res.cloudinary.com/dmur7nphq/image/upload/v1459690271/weather_20_q1ixil.jpg",
+   moreDegrees: "https://res.cloudinary.com/dmur7nphq/image/upload/v1466457949/weather_more-degree_e9r0lj.jpg",
 };
 
 //Change the background according to the temperature
